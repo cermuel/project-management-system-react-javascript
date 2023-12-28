@@ -13,11 +13,11 @@ export const useLogout = () => {
     setIsPending(true);
 
     try {
-      const { uid } = user;
-      await projectFirestore
-        .collection("users")
-        .doc(uid)
-        .update({ online: false });
+      // const { uid } = user;
+      // await projectFirestore
+      //   .collection("users")
+      //   .doc(uid)
+      //   .update({ online: false });
       // sign the user out
       await projectAuth.signOut();
 

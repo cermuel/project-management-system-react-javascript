@@ -36,11 +36,11 @@ export const useSignup = () => {
       await res.user.updateProfile({ displayName, photoURL: imgURL });
 
       // create user document
-      await projectFirestore.collection("users").doc(res.user.uid).set({
-        online: true,
-        displayName,
-        photoURL: imgURL,
-      });
+      // await projectFirestore.collection("users").doc(res.user.uid).set({
+      //   online: true,
+      //   displayName,
+      //   photoURL: imgURL,
+      // });
 
       // dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });

@@ -25,7 +25,7 @@ function App() {
   const { user, authIsReady } = useAuthContext();
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 620;
-
+  console.log(user);
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
   }, []);
