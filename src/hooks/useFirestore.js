@@ -21,8 +21,13 @@ const firestoreReducer = (state, action) => {
       };
     case "DELETED_DOCUMENT":
       return { isPending: false, document: null, success: true, error: null };
-    case "UPDATED_DOCUMENT"  :
-      return {isPending: false, document: action.payload, success: true, error: null}
+    case "UPDATED_DOCUMENT":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
     case "ERROR":
       return {
         isPending: false,
@@ -54,8 +59,9 @@ export const useFirestore = (collection) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      const createdAt = timestamp.fromDate(new Date());
+      const createdAt = timestamp(new Date());
       const addedDocument = await ref.add({ ...doc, createdAt });
+      console.log(addedDocument);
       dispatchIfNotCancelled({
         type: "ADDED_DOCUMENT",
         payload: addedDocument,
@@ -77,21 +83,21 @@ export const useFirestore = (collection) => {
     }
   };
 
-  //update document 
+  //update document
   const updateDocument = async (id, updates) => {
-    dispatch({type:"IS_PENDING"})
-          try {
-            const updatedDocument = await ref.doc(id).update(updates)
-            dispatchIfNotCancelled({ type: "UPDATED_DOCUMENT", payload: updatedDocument });
-            return updatedDocument
-          }
-          catch(err) {
-            dispatchIfNotCancelled({ type: "ERROR", payload: err.message }); 
-            return null
-          }
-
-  }
-
+    dispatch({ type: "IS_PENDING" });
+    try {
+      const updatedDocument = await ref.doc(id).update(updates);
+      dispatchIfNotCancelled({
+        type: "UPDATED_DOCUMENT",
+        payload: updatedDocument,
+      });
+      return updatedDocument;
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+      return null;
+    }
+  };
 
   useEffect(() => {
     return () => setIsCancelled(true);

@@ -25,5 +25,7 @@ const analytics = firebase.analytics(app);
 const projectAuth = firebase.auth(app);
 const projectFirestore = firebase.firestore(app);
 const projectStorage = firebase.storage(app);
-const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+const timestamp = (date) => {
+  return firebase.firestore.Timestamp.fromDate(date);
+};
 export { projectAuth, projectFirestore, projectStorage, timestamp };

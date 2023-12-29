@@ -6,7 +6,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import "./Create.css";
 import { useNavigate } from "react-router-dom";
-
+console.log(timestamp);
 const categories = [
   { value: "development", label: "Development" },
   { value: "design", label: "Design" },
@@ -70,7 +70,7 @@ export default function Create() {
       name,
       details,
       category: category.value,
-      dueDate: timestamp.fromDate(new Date(dueDate)),
+      dueDate: timestamp(new Date(dueDate)),
       comments: [],
       createdBy,
       assignedUsersList,
@@ -82,8 +82,6 @@ export default function Create() {
       navigate("/");
     }
   };
-
-  console.log(response);
 
   return (
     <div className="create-form pages-margin">
